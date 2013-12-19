@@ -1,8 +1,14 @@
+<<<<<<< HEAD
 # AngularJS CMS generator [![Build Status](https://secure.travis-ci.org/yeoman/generator-angular-cms.png?branch=master)](http://travis-ci.org/yeoman/generator-angular-cms)
 
 Maintainer: [Jonnie Spratley](https://github.com/jonniespratley)
 
 Based on [angular-seed](https://github.com/angular/angular-seed/)
+=======
+# AngularJS generator [![Build Status](https://secure.travis-ci.org/yeoman/generator-angular.png?branch=master)](http://travis-ci.org/yeoman/generator-angular) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+
+> Yeoman generator for AngularJS - lets you quickly set up a project with sensible defaults and best practises.
+>>>>>>> upstream/master
 
 
 ## Usage
@@ -21,6 +27,9 @@ Run `yo angular`, optionally passing an app name:
 ```
 yo angular [app-name]
 ```
+
+Run `grunt` for building and `grunt serve` for preview
+
 
 ## Generators
 
@@ -42,7 +51,7 @@ Available generators:
 **Note: Generators are to be run from the root directory of your app.**
 
 ### App
-Sets up a new AngularJS app, generating all the boilerplate you need to get started. The app generator also optionally installs Twitter Bootstrap and additional AngularJS modules, such as angular-resource.
+Sets up a new AngularJS app, generating all the boilerplate you need to get started. The app generator also optionally installs Twitter Bootstrap and additional AngularJS modules, such as angular-resource (installed by default).
 
 Example:
 ```bash
@@ -188,10 +197,15 @@ angular.module('myMod')
 
 A project can mix CoffeScript and JavaScript files.
 
-To output JavaScript files, even if CoffeeScript files exist (the default is to output CoffeeScript files if 
-the generator finds any in the project), use `--coffee=false`.
+To output JavaScript files, even if CoffeeScript files exist (the default is to output CoffeeScript files if the generator finds any in the project), use `--coffee=false`.
 
 ### Minification Safe
+
+**Deprecated**
+
+[Related Issue #452](https://github.com/yeoman/generator-angular/issues/452): This option is being removed in future versions of the generator. Initially it was needed as ngMin was not entirely stable. As it has matured, the need to keep separate versions of the script templates has led to extra complexity and maintenance of the generator. By removing these extra burdens, new features and bug fixes should be easier to implement. If you are dependent on this option, please take a look at ngMin and seriously consider implementing it in your own code. It will help reduce the amount of typing you have to do (and look through) as well as make your code cleaner to look at.
+
+
 By default, generators produce unannotated code. Without annotations, AngularJS's DI system will break when minified. Typically, these annotations that make minification safe are added automatically at build-time, after application files are concatenated, but before they are minified. By providing the `--minsafe` option, the code generated will out-of-the-box be ready for minification. The trade-off is between amount of boilerplate, and build process complexity.
 
 #### Example
@@ -225,7 +239,24 @@ angular.module('myMod').controller('MyCtrl',
 
 The annotations are important because minified code will rename variables, making it impossible for AngularJS to infer module names based solely on function parameters.
 
-The recommended build process uses `ngmin`, a tool that automatically adds these annotations. However, if you'd rather not use `ngmin`, you have to add these annotations manually yourself.
+The recommended build process uses `ngmin`, a tool that automatically adds these annotations. However, if you'd rather not use `ngmin`, you have to add these annotations manually yourself. **One thing to note is that `ngmin` does not produce minsafe code for things that are not main level elements like controller, services, providers, etc.:
+```javascript
+resolve: {
+  User: function(myService) {
+    return MyService();
+  }
+}
+```
+
+will need to be manually done like so:
+```javascript
+resolve: {
+  User: ['myService', function(myService) {
+    return MyService();
+  }]
+}
+```
+
 
 ### Add to Index
 By default, new scripts are added to the index.html file. However, this may not always be suitable. Some use cases:
