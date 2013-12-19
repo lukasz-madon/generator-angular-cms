@@ -1,15 +1,15 @@
-# AngularJS generator [![Build Status](https://secure.travis-ci.org/yeoman/generator-angular.png?branch=master)](http://travis-ci.org/yeoman/generator-angular)
+# AngularJS CMS generator [![Build Status](https://secure.travis-ci.org/yeoman/generator-angular-cms.png?branch=master)](http://travis-ci.org/yeoman/generator-angular-cms)
 
-Maintainer: [Brian Ford](https://github.com/btford)
+Maintainer: [Jonnie Spratley](https://github.com/jonniespratley)
 
 Based on [angular-seed](https://github.com/angular/angular-seed/)
 
 
 ## Usage
 
-Install `generator-angular`:
+Install `generator-angular-cms-cms`:
 ```
-npm install -g generator-angular
+npm install -g generator-angular-cms
 ```
 
 Make a new directory, and `cd` into it:
